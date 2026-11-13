@@ -1,0 +1,39 @@
+[gd_scene format=3]
+
+[sub_resource type="StandardMaterial3D" id="mat_wood"]
+albedo_color = Color(0.55, 0.38, 0.21, 1)
+roughness = 0.85
+
+[sub_resource type="StandardMaterial3D" id="mat_sign"]
+albedo_color = Color(0.82, 0.72, 0.5, 1)
+roughness = 0.85
+
+[sub_resource type="CylinderMesh" id="mesh_1"]
+material = SubResource("mat_wood")
+top_radius = 0.05
+bottom_radius = 0.06
+height = 1.8
+
+[sub_resource type="BoxMesh" id="mesh_2"]
+material = SubResource("mat_sign")
+size = Vector3(0.8, 0.28, 0.04)
+
+[sub_resource type="CylinderShape3D" id="shape_3"]
+height = 1.8
+radius = 0.08
+
+[node name="Signpost" type="StaticBody3D"]
+collision_layer = 2
+collision_mask = 0
+
+[node name="Post" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+mesh = SubResource("mesh_1")
+
+[node name="Sign" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 1.55, 0)
+mesh = SubResource("mesh_2")
+
+[node name="Collision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("shape_3")

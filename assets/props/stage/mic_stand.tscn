@@ -1,0 +1,61 @@
+[gd_scene format=3]
+
+[sub_resource type="StandardMaterial3D" id="mat_metal"]
+albedo_color = Color(0.08, 0.08, 0.09, 1)
+roughness = 0.35
+metallic = 0.6
+
+[sub_resource type="StandardMaterial3D" id="mat_mic"]
+albedo_color = Color(0.3, 0.3, 0.32, 1)
+roughness = 0.3
+metallic = 0.8
+
+[sub_resource type="CylinderMesh" id="mesh_1"]
+material = SubResource("mat_metal")
+top_radius = 0.16
+bottom_radius = 0.18
+height = 0.03
+
+[sub_resource type="CylinderMesh" id="mesh_2"]
+material = SubResource("mat_metal")
+top_radius = 0.012
+bottom_radius = 0.012
+height = 1.45
+
+[sub_resource type="BoxMesh" id="mesh_3"]
+material = SubResource("mat_metal")
+size = Vector3(0.03, 0.03, 0.08)
+
+[sub_resource type="CylinderMesh" id="mesh_4"]
+material = SubResource("mat_mic")
+top_radius = 0.025
+bottom_radius = 0.015
+height = 0.18
+
+[sub_resource type="CylinderShape3D" id="shape_5"]
+height = 1.5
+radius = 0.18
+
+[node name="MicStand" type="StaticBody3D"]
+collision_layer = 2
+collision_mask = 0
+
+[node name="Base" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0)
+mesh = SubResource("mesh_1")
+
+[node name="Pole" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+mesh = SubResource("mesh_2")
+
+[node name="Clip" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.48, 0.04)
+mesh = SubResource("mesh_3")
+
+[node name="Mic" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.52, 0.1)
+mesh = SubResource("mesh_4")
+
+[node name="C" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+shape = SubResource("shape_5")

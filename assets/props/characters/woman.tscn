@@ -1,0 +1,16 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/characters/HumanCharacter.gd" id="1_human"]
+
+[node name="Woman" type="Node3D"]
+script = ExtResource("1_human")
+body_type = "Woman"
+height = 1.66
+build = 0.9
+skin_color = Color(0.93, 0.75, 0.62, 1)
+hair_color = Color(0.32, 0.18, 0.1, 1)
+hair_style = "Long"
+top_color = Color(0.2, 0.55, 0.6, 1)
+bottom_color = Color(0.25, 0.22, 0.35, 1)
+bottom_style = "Skirt"
+shoe_color = Color(0.35, 0.15, 0.12, 1)

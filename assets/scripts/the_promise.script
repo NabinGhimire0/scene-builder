@@ -1,0 +1,52 @@
+# Example film script for Scene Builder.
+# Script window → Build Film. Edit anything and build again.
+
+REQUIRES: Scene Builder 1.5
+TITLE: The Promise
+LOCATION: Lakeside Campfire
+TIME: 18.0 -> 19.0
+WEATHER: mist 0.3, wind 0.25
+MUSIC: theme, volume -5
+
+CAST:
+Mira = woman casual, top teal, bottom navy, hair ponytail, height 1.64
+Grandpa = elder, top brown, bottom grey
+
+SET:
+lamp = torch right of bench
+
+SCENE 1: The way home
+Grandpa sits on bench
+Mira is at hill
+SHOT: establishing, crane down
+TITLE: THE PROMISE for 4s
+WAIT 4s
+SHOT: follow Mira
+Mira walks to clearing via path
+SHOT: medium on Grandpa, from left, dolly in
+Grandpa looks at Mira
+Grandpa: "I knew you would come back before dark."
+
+# No SHOT lines here: Scene Builder films this scene by itself.
+SCENE 2: By the fire
+Mira walks to campfire
+Mira (to Grandpa): "I promised, didn't I?"
+Grandpa nods
+Grandpa: "Your grandmother made the same promise, sixty years ago."
+Mira (to Grandpa): "Did she keep it?"
+WAIT 1s
+Grandpa: "Every single evening. Right here."
+Mira sits on bench 1
+
+SCENE 3: Night falls
+TIME: 19.6 over 6s
+LIGHT: mist 0.55 over 6s
+SHOT: two-shot Mira and Grandpa, static
+Grandpa (raises hand): "Look. The first star."
+SHOT: close-up on Mira, from right
+Mira looks at lake
+WAIT 2s
+SHOT: aerial, orbit left
+WAIT 5s
+TITLE: THE END for 4s
+WAIT 4s

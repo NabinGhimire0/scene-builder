@@ -1,0 +1,36 @@
+[gd_scene format=3]
+
+[sub_resource type="StandardMaterial3D" id="mat_rug"]
+albedo_color = Color(0.55, 0.18, 0.15, 1)
+roughness = 1
+
+[sub_resource type="StandardMaterial3D" id="mat_border"]
+albedo_color = Color(0.85, 0.75, 0.55, 1)
+roughness = 1
+
+[sub_resource type="BoxMesh" id="mesh_1"]
+material = SubResource("mat_border")
+size = Vector3(2.6, 0.012, 1.8)
+
+[sub_resource type="BoxMesh" id="mesh_2"]
+material = SubResource("mat_rug")
+size = Vector3(2.3, 0.01, 1.5)
+
+[sub_resource type="BoxShape3D" id="shape_3"]
+size = Vector3(2.6, 0.02, 1.8)
+
+[node name="Rug" type="StaticBody3D"]
+collision_layer = 2
+collision_mask = 0
+
+[node name="Border" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.006, 0)
+mesh = SubResource("mesh_1")
+
+[node name="Centre" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.013, 0)
+mesh = SubResource("mesh_2")
+
+[node name="C" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
+shape = SubResource("shape_3")

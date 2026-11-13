@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/props/Room.gd" id="1_p"]
+
+[node name="HospitalRoom" type="Node3D"]
+script = ExtResource("1_p")
+width = 9.0
+depth = 8.0
+height = 3.0
+floor_style = "Tiles"
+floor_color = Color(0.85, 0.87, 0.88, 1)
+wall_color = Color(0.92, 0.95, 0.95, 1)
+lower_wall_color = Color(0.6, 0.78, 0.8, 1)
+windows = 2

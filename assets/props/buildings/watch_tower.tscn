@@ -1,0 +1,115 @@
+[gd_scene format=3]
+
+[sub_resource type="StandardMaterial3D" id="mat_wood"]
+albedo_color = Color(0.55, 0.38, 0.21, 1)
+roughness = 0.85
+
+[sub_resource type="StandardMaterial3D" id="mat_roof"]
+albedo_color = Color(0.42, 0.18, 0.13, 1)
+roughness = 0.85
+
+[sub_resource type="BoxMesh" id="mesh_1"]
+material = SubResource("mat_wood")
+size = Vector3(0.18, 3, 0.18)
+
+[sub_resource type="BoxMesh" id="mesh_2"]
+material = SubResource("mat_wood")
+size = Vector3(0.18, 3, 0.18)
+
+[sub_resource type="BoxMesh" id="mesh_3"]
+material = SubResource("mat_wood")
+size = Vector3(0.18, 3, 0.18)
+
+[sub_resource type="BoxMesh" id="mesh_4"]
+material = SubResource("mat_wood")
+size = Vector3(0.18, 3, 0.18)
+
+[sub_resource type="BoxMesh" id="mesh_5"]
+material = SubResource("mat_wood")
+size = Vector3(2, 0.15, 2)
+
+[sub_resource type="BoxMesh" id="mesh_6"]
+material = SubResource("mat_wood")
+size = Vector3(2, 0.08, 2)
+
+[sub_resource type="PrismMesh" id="mesh_7"]
+material = SubResource("mat_roof")
+size = Vector3(2.3, 1, 2.3)
+
+[sub_resource type="BoxMesh" id="mesh_8"]
+material = SubResource("mat_wood")
+size = Vector3(0.1, 1, 0.1)
+
+[sub_resource type="BoxMesh" id="mesh_9"]
+material = SubResource("mat_wood")
+size = Vector3(0.1, 1, 0.1)
+
+[sub_resource type="BoxMesh" id="mesh_10"]
+material = SubResource("mat_wood")
+size = Vector3(0.1, 1, 0.1)
+
+[sub_resource type="BoxMesh" id="mesh_11"]
+material = SubResource("mat_wood")
+size = Vector3(0.1, 1, 0.1)
+
+[sub_resource type="BoxShape3D" id="shape_12"]
+size = Vector3(2, 4.1, 2)
+
+[sub_resource type="BoxShape3D" id="shape_13"]
+size = Vector3(2.3, 1, 2.3)
+
+[node name="WatchTower" type="StaticBody3D"]
+collision_layer = 2
+collision_mask = 0
+
+[node name="Leg1" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8, 1.5, -0.8)
+mesh = SubResource("mesh_1")
+
+[node name="Leg2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8, 1.5, -0.8)
+mesh = SubResource("mesh_2")
+
+[node name="Leg3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8, 1.5, 0.8)
+mesh = SubResource("mesh_3")
+
+[node name="Leg4" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8, 1.5, 0.8)
+mesh = SubResource("mesh_4")
+
+[node name="Platform" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.05, 0)
+mesh = SubResource("mesh_5")
+
+[node name="Rail" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.6, 0)
+mesh = SubResource("mesh_6")
+
+[node name="Roof" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.6, 0)
+mesh = SubResource("mesh_7")
+
+[node name="Post1" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.95, 3.6, -0.95)
+mesh = SubResource("mesh_8")
+
+[node name="Post2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.95, 3.6, -0.95)
+mesh = SubResource("mesh_9")
+
+[node name="Post3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.95, 3.6, 0.95)
+mesh = SubResource("mesh_10")
+
+[node name="Post4" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.95, 3.6, 0.95)
+mesh = SubResource("mesh_11")
+
+[node name="Collision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.05, 0)
+shape = SubResource("shape_12")
+
+[node name="RoofCollision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.6, 0)
+shape = SubResource("shape_13")

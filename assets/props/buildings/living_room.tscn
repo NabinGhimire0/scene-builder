@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/props/Room.gd" id="1_p"]
+
+[node name="LivingRoom" type="Node3D"]
+script = ExtResource("1_p")
+width = 8.0
+depth = 7.0
+height = 2.8
+floor_style = "Wood planks"
+floor_color = Color(0.5, 0.34, 0.2, 1)
+wall_color = Color(0.9, 0.85, 0.75, 1)
+lower_wall_color = Color(0.9, 0.85, 0.75, 1)
+windows = 2

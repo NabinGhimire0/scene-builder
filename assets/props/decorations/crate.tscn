@@ -1,0 +1,36 @@
+[gd_scene format=3]
+
+[sub_resource type="StandardMaterial3D" id="mat_wood"]
+albedo_color = Color(0.58, 0.4, 0.22, 1)
+roughness = 0.85
+
+[sub_resource type="StandardMaterial3D" id="mat_trim"]
+albedo_color = Color(0.36, 0.23, 0.13, 1)
+roughness = 0.85
+
+[sub_resource type="BoxMesh" id="mesh_1"]
+material = SubResource("mat_wood")
+size = Vector3(1, 1, 1)
+
+[sub_resource type="BoxMesh" id="mesh_2"]
+material = SubResource("mat_trim")
+size = Vector3(1.02, 0.12, 1.02)
+
+[sub_resource type="BoxShape3D" id="shape_3"]
+size = Vector3(1, 1, 1)
+
+[node name="Crate" type="StaticBody3D"]
+collision_layer = 2
+collision_mask = 0
+
+[node name="Box" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("mesh_1")
+
+[node name="Band" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("mesh_2")
+
+[node name="Collision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("shape_3")

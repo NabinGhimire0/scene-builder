@@ -1,0 +1,683 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/editor/EditorHistory.gd" id="1_history"]
+[ext_resource type="Script" path="res://scripts/placement/PlacementController.gd" id="2_place"]
+[ext_resource type="Script" path="res://scripts/editor/SelectionManager.gd" id="3_select"]
+[ext_resource type="Script" path="res://scripts/editor/PoseTool.gd" id="40_pose"]
+[ext_resource type="Script" path="res://scripts/editor/SceneDocument.gd" id="4_doc"]
+[ext_resource type="Script" path="res://scripts/cinematic/TimelineController.gd" id="5_timeline"]
+[ext_resource type="Script" path="res://scripts/cinematic/ExportManager.gd" id="6_export"]
+[ext_resource type="Script" path="res://scripts/ui/MainUI.gd" id="7_ui"]
+[ext_resource type="Script" path="res://scripts/ui/AssetLibraryPanel.gd" id="8_library"]
+[ext_resource type="Script" path="res://scripts/ui/ViewportArea.gd" id="9_viewport"]
+[ext_resource type="Script" path="res://scripts/ui/InspectorPanel.gd" id="10_inspector"]
+[ext_resource type="Script" path="res://scripts/editor/EditorCamera.gd" id="11_cam"]
+[ext_resource type="Shader" path="res://assets/materials/grid.gdshader" id="12_grid"]
+[ext_resource type="Script" path="res://scripts/cinematic/EnvironmentController.gd" id="13_env"]
+[ext_resource type="Script" path="res://scripts/cinematic/CinematicDirector.gd" id="14_director"]
+[ext_resource type="Script" path="res://scripts/ui/TimelinePanel.gd" id="15_timeline_panel"]
+[ext_resource type="Script" path="res://scripts/ui/LetterboxOverlay.gd" id="16_letterbox"]
+[ext_resource type="Script" path="res://scripts/library/OnlineLibrary.gd" id="17_online"]
+[ext_resource type="Script" path="res://scripts/nature/Terrain.gd" id="18_terrain"]
+[ext_resource type="Script" path="res://scripts/nature/Vegetation.gd" id="19_vegetation"]
+[ext_resource type="Script" path="res://scripts/editor/WorldTools.gd" id="20_tools"]
+[ext_resource type="Script" path="res://scripts/cinematic/TitleTrack.gd" id="21_titles"]
+[ext_resource type="Script" path="res://scripts/cinematic/AudioTrack.gd" id="22_audio"]
+[ext_resource type="Script" path="res://scripts/cinematic/BlenderExport.gd" id="23_blender"]
+[ext_resource type="Script" path="res://scripts/editor/TemplateBuilder.gd" id="24_templates"]
+[ext_resource type="Script" path="res://scripts/script/ScriptDirector.gd" id="25_script_director"]
+
+[sub_resource type="ProceduralSkyMaterial" id="SkyMat_1"]
+sky_top_color = Color(0.3, 0.47, 0.74, 1)
+sky_horizon_color = Color(0.66, 0.72, 0.8, 1)
+ground_bottom_color = Color(0.16, 0.16, 0.17, 1)
+ground_horizon_color = Color(0.66, 0.72, 0.8, 1)
+
+[sub_resource type="Sky" id="Sky_1"]
+sky_material = SubResource("SkyMat_1")
+
+[sub_resource type="Environment" id="Env_1"]
+background_mode = 2
+sky = SubResource("Sky_1")
+ambient_light_source = 3
+reflected_light_source = 2
+tonemap_mode = 2
+
+[sub_resource type="StandardMaterial3D" id="GroundMat_1"]
+albedo_color = Color(0.33, 0.4, 0.27, 1)
+roughness = 0.95
+
+[sub_resource type="ShaderMaterial" id="GridMat_1"]
+render_priority = 0
+shader = ExtResource("12_grid")
+shader_parameter/cell_size = 1.0
+shader_parameter/major_every = 10
+
+[sub_resource type="PlaneMesh" id="GroundMesh_1"]
+size = Vector2(2000, 2000)
+
+[sub_resource type="PlaneMesh" id="GridMesh_1"]
+size = Vector2(200, 200)
+
+[sub_resource type="BoxShape3D" id="GroundShape_1"]
+size = Vector3(2000, 1, 2000)
+
+[node name="MainApp" type="Node3D"]
+
+[node name="World3D" type="Node3D" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="World3D"]
+environment = SubResource("Env_1")
+
+[node name="Sun" type="DirectionalLight3D" parent="World3D"]
+transform = Transform3D(0.866025, -0.383022, 0.321394, 0, 0.642788, 0.766044, -0.5, -0.663414, 0.55667, 0, 12, 0)
+shadow_enabled = true
+directional_shadow_max_distance = 150.0
+
+[node name="GroundPlane" type="StaticBody3D" parent="World3D"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Mesh" type="MeshInstance3D" parent="World3D/GroundPlane"]
+mesh = SubResource("GroundMesh_1")
+material_override = SubResource("GroundMat_1")
+
+[node name="GridOverlay" type="MeshInstance3D" parent="World3D/GroundPlane"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.012, 0)
+layers = 524288
+cast_shadow = 0
+mesh = SubResource("GridMesh_1")
+material_override = SubResource("GridMat_1")
+
+[node name="Collision" type="CollisionShape3D" parent="World3D/GroundPlane"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+shape = SubResource("GroundShape_1")
+
+[node name="Terrain" type="Node3D" parent="World3D" node_paths=PackedStringArray("ground_body", "ground_mesh")]
+script = ExtResource("18_terrain")
+ground_body = NodePath("../GroundPlane")
+ground_mesh = NodePath("../GroundPlane/Mesh")
+
+[node name="Vegetation" type="Node3D" parent="World3D"]
+script = ExtResource("19_vegetation")
+
+[node name="PlacedProps" type="Node3D" parent="World3D"]
+
+[node name="PlacementPreview" type="Node3D" parent="World3D"]
+
+[node name="VirtualCameras" type="Node3D" parent="World3D"]
+
+[node name="EnvironmentController" type="Node" parent="." node_paths=PackedStringArray("sun", "world_environment", "ground_mesh", "editor_viewport", "terrain")]
+script = ExtResource("13_env")
+terrain = NodePath("../World3D/Terrain")
+sun = NodePath("../World3D/Sun")
+world_environment = NodePath("../World3D/WorldEnvironment")
+ground_mesh = NodePath("../World3D/GroundPlane/Mesh")
+editor_viewport = NodePath("../UI/Layout/Workspace/ViewportArea/ViewportContainer/SubViewport")
+
+[node name="EditorHistory" type="Node" parent="." node_paths=PackedStringArray("placed_props_root")]
+script = ExtResource("1_history")
+placed_props_root = NodePath("../World3D/PlacedProps")
+
+[node name="PlacementController" type="Node3D" parent="." node_paths=PackedStringArray("camera", "placed_props_root", "preview_root", "history")]
+script = ExtResource("2_place")
+camera = NodePath("../UI/Layout/Workspace/ViewportArea/ViewportContainer/SubViewport/EditorCamera")
+placed_props_root = NodePath("../World3D/PlacedProps")
+preview_root = NodePath("../World3D/PlacementPreview")
+history = NodePath("../EditorHistory")
+
+[node name="SelectionManager" type="Node3D" parent="." node_paths=PackedStringArray("camera", "placed_props_root", "history", "placement", "cameras_root", "director")]
+script = ExtResource("3_select")
+camera = NodePath("../UI/Layout/Workspace/ViewportArea/ViewportContainer/SubViewport/EditorCamera")
+placed_props_root = NodePath("../World3D/PlacedProps")
+history = NodePath("../EditorHistory")
+placement = NodePath("../PlacementController")
+cameras_root = NodePath("../World3D/VirtualCameras")
+director = NodePath("../CinematicDirector")
+
+[node name="CinematicDirector" type="Node" parent="." node_paths=PackedStringArray("cameras_root", "editor_camera", "shot_camera", "history")]
+script = ExtResource("14_director")
+cameras_root = NodePath("../World3D/VirtualCameras")
+editor_camera = NodePath("../UI/Layout/Workspace/ViewportArea/ViewportContainer/SubViewport/EditorCamera")
+shot_camera = NodePath("../UI/Layout/Workspace/ViewportArea/ViewportContainer/SubViewport/ShotCamera")
+history = NodePath("../EditorHistory")
+
+[node name="TimelineController" type="Node" parent="." node_paths=PackedStringArray("director", "environment", "history", "placed_props_root", "cameras_root")]
+script = ExtResource("5_timeline")
+director = NodePath("../CinematicDirector")
+environment = NodePath("../EnvironmentController")
+history = NodePath("../EditorHistory")
+placed_props_root = NodePath("../World3D/PlacedProps")
+cameras_root = NodePath("../World3D/VirtualCameras")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="TimelineController"]
+
+[node name="CinematicExportManager" type="Node" parent="." node_paths=PackedStringArray("director", "timeline", "placement", "environment", "titles", "audio", "blender_export")]
+script = ExtResource("6_export")
+blender_export = NodePath("../BlenderExport")
+titles = NodePath("../TitleTrack")
+audio = NodePath("../AudioTrack")
+director = NodePath("../CinematicDirector")
+timeline = NodePath("../TimelineController")
+placement = NodePath("../PlacementController")
+environment = NodePath("../EnvironmentController")
+
+[node name="WorldTools" type="Node3D" parent="." node_paths=PackedStringArray("terrain", "vegetation", "placement", "selection", "history", "timeline")]
+script = ExtResource("20_tools")
+terrain = NodePath("../World3D/Terrain")
+vegetation = NodePath("../World3D/Vegetation")
+placement = NodePath("../PlacementController")
+selection = NodePath("../SelectionManager")
+history = NodePath("../EditorHistory")
+timeline = NodePath("../TimelineController")
+
+[node name="PoseTool" type="Node3D" parent="." node_paths=PackedStringArray("camera", "selection", "timeline")]
+script = ExtResource("40_pose")
+camera = NodePath("../UI/Layout/Workspace/ViewportArea/ViewportContainer/SubViewport/EditorCamera")
+selection = NodePath("../SelectionManager")
+timeline = NodePath("../TimelineController")
+
+[node name="TitleTrack" type="Node" parent="." node_paths=PackedStringArray("timeline", "director", "editor_viewport")]
+script = ExtResource("21_titles")
+timeline = NodePath("../TimelineController")
+director = NodePath("../CinematicDirector")
+editor_viewport = NodePath("../UI/Layout/Workspace/ViewportArea/ViewportContainer/SubViewport")
+
+[node name="AudioTrack" type="Node" parent="." node_paths=PackedStringArray("timeline", "exporter")]
+script = ExtResource("22_audio")
+exporter = NodePath("../CinematicExportManager")
+timeline = NodePath("../TimelineController")
+
+[node name="BlenderExport" type="Node" parent="." node_paths=PackedStringArray("placed_props_root", "cameras_root", "terrain", "vegetation", "timeline", "director", "environment", "exporter")]
+script = ExtResource("23_blender")
+placed_props_root = NodePath("../World3D/PlacedProps")
+cameras_root = NodePath("../World3D/VirtualCameras")
+terrain = NodePath("../World3D/Terrain")
+vegetation = NodePath("../World3D/Vegetation")
+timeline = NodePath("../TimelineController")
+director = NodePath("../CinematicDirector")
+environment = NodePath("../EnvironmentController")
+exporter = NodePath("../CinematicExportManager")
+
+[node name="TemplateBuilder" type="Node" parent="." node_paths=PackedStringArray("document", "terrain", "vegetation", "environment", "director", "timeline", "placed_props_root", "history", "editor_camera", "titles", "audio")]
+script = ExtResource("24_templates")
+document = NodePath("../SceneDocument")
+terrain = NodePath("../World3D/Terrain")
+vegetation = NodePath("../World3D/Vegetation")
+environment = NodePath("../EnvironmentController")
+director = NodePath("../CinematicDirector")
+timeline = NodePath("../TimelineController")
+placed_props_root = NodePath("../World3D/PlacedProps")
+history = NodePath("../EditorHistory")
+audio = NodePath("../AudioTrack")
+titles = NodePath("../TitleTrack")
+editor_camera = NodePath("../UI/Layout/Workspace/ViewportArea/ViewportContainer/SubViewport/EditorCamera")
+
+[node name="ScriptDirector" type="Node" parent="." node_paths=PackedStringArray("builder")]
+script = ExtResource("25_script_director")
+builder = NodePath("../TemplateBuilder")
+
+[node name="OnlineLibrary" type="Node" parent="."]
+script = ExtResource("17_online")
+
+[node name="SceneDocument" type="Node" parent="." node_paths=PackedStringArray("placed_props_root", "cameras_root", "history", "selection", "editor_camera", "director", "timeline", "environment", "exporter", "online", "terrain", "vegetation", "titles", "audio")]
+script = ExtResource("4_doc")
+terrain = NodePath("../World3D/Terrain")
+vegetation = NodePath("../World3D/Vegetation")
+titles = NodePath("../TitleTrack")
+audio = NodePath("../AudioTrack")
+placed_props_root = NodePath("../World3D/PlacedProps")
+cameras_root = NodePath("../World3D/VirtualCameras")
+history = NodePath("../EditorHistory")
+selection = NodePath("../SelectionManager")
+editor_camera = NodePath("../UI/Layout/Workspace/ViewportArea/ViewportContainer/SubViewport/EditorCamera")
+director = NodePath("../CinematicDirector")
+timeline = NodePath("../TimelineController")
+environment = NodePath("../EnvironmentController")
+exporter = NodePath("../CinematicExportManager")
+online = NodePath("../OnlineLibrary")
+
+[node name="UI" type="CanvasLayer" parent="." node_paths=PackedStringArray("placement", "selection", "history", "document", "editor_camera", "ground_mesh", "director", "timeline", "exporter", "timeline_panel", "tools", "templates", "script_director")]
+script = ExtResource("7_ui")
+templates = NodePath("../TemplateBuilder")
+script_director = NodePath("../ScriptDirector")
+tools = NodePath("../WorldTools")
+placement = NodePath("../PlacementController")
+selection = NodePath("../SelectionManager")
+history = NodePath("../EditorHistory")
+document = NodePath("../SceneDocument")
+editor_camera = NodePath("Layout/Workspace/ViewportArea/ViewportContainer/SubViewport/EditorCamera")
+ground_mesh = NodePath("../World3D/GroundPlane/GridOverlay")
+director = NodePath("../CinematicDirector")
+timeline = NodePath("../TimelineController")
+exporter = NodePath("../CinematicExportManager")
+timeline_panel = NodePath("Layout/TimelinePanel")
+
+[node name="Layout" type="VBoxContainer" parent="UI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 0
+
+[node name="TopBarFrame" type="PanelContainer" parent="UI/Layout"]
+layout_mode = 2
+theme_type_variation = &"ToolbarPanel"
+
+[node name="Margin" type="MarginContainer" parent="UI/Layout/TopBarFrame"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 7
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 7
+
+[node name="TopBar" type="HBoxContainer" parent="UI/Layout/TopBarFrame/Margin"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="AppTitle" type="Label" parent="UI/Layout/TopBarFrame/Margin/TopBar"]
+layout_mode = 2
+theme_type_variation = &"PanelTitle"
+text = "Scene Builder"
+
+[node name="TitleSep" type="VSeparator" parent="UI/Layout/TopBarFrame/Margin/TopBar"]
+layout_mode = 2
+
+[node name="SaveButton" type="Button" parent="UI/Layout/TopBarFrame/Margin/TopBar"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Save the project (Ctrl+S, Save As: Ctrl+Shift+S)"
+focus_mode = 0
+text = "Save"
+
+[node name="LoadButton" type="Button" parent="UI/Layout/TopBarFrame/Margin/TopBar"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Open a saved project (Ctrl+O)"
+focus_mode = 0
+text = "Load"
+
+[node name="Sep1" type="VSeparator" parent="UI/Layout/TopBarFrame/Margin/TopBar"]
+layout_mode = 2
+
+[node name="UndoButton" type="Button" parent="UI/Layout/TopBarFrame/Margin/TopBar"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+text = "Undo"
+
+[node name="RedoButton" type="Button" parent="UI/Layout/TopBarFrame/Margin/TopBar"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+text = "Redo"
+
+[node name="Sep2" type="VSeparator" parent="UI/Layout/TopBarFrame/Margin/TopBar"]
+layout_mode = 2
+
+[node name="ClearButton" type="Button" parent="UI/Layout/TopBarFrame/Margin/TopBar"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Remove every object, camera and keyframe (undoable)"
+focus_mode = 0
+text = "Clear"
+
+[node name="Sep3" type="VSeparator" parent="UI/Layout/TopBarFrame/Margin/TopBar"]
+layout_mode = 2
+
+[node name="GridSnapToggle" type="CheckButton" parent="UI/Layout/TopBarFrame/Margin/TopBar"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Snap placed and moved objects to the ground grid"
+focus_mode = 0
+button_pressed = true
+text = "Grid Snap"
+
+[node name="GridStepSpin" type="SpinBox" parent="UI/Layout/TopBarFrame/Margin/TopBar"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Grid size"
+min_value = 0.1
+max_value = 10.0
+step = 0.1
+value = 1.0
+suffix = "m"
+
+[node name="Sep4" type="VSeparator" parent="UI/Layout/TopBarFrame/Margin/TopBar"]
+layout_mode = 2
+
+[node name="AddCameraButton" type="Button" parent="UI/Layout/TopBarFrame/Margin/TopBar"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Place a film camera exactly where the editor view is looking from"
+focus_mode = 0
+text = "Add Camera"
+
+[node name="Spacer" type="Control" parent="UI/Layout/TopBarFrame/Margin/TopBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="PlayCinematicButton" type="Button" parent="UI/Layout/TopBarFrame/Margin/TopBar"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+tooltip_text = "Play the whole film from the start through your cameras"
+focus_mode = 0
+text = "Play Cinematic"
+
+[node name="ExportVideoButton" type="Button" parent="UI/Layout/TopBarFrame/Margin/TopBar"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Render the film to a video file (Ctrl+E)"
+focus_mode = 0
+text = "Export Video"
+
+[node name="Workspace" type="HBoxContainer" parent="UI/Layout"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+theme_override_constants/separation = 0
+
+[node name="AssetLibraryPanel" type="PanelContainer" parent="UI/Layout/Workspace" node_paths=PackedStringArray("placement", "online")]
+custom_minimum_size = Vector2(260, 0)
+layout_mode = 2
+script = ExtResource("8_library")
+placement = NodePath("../../../../PlacementController")
+online = NodePath("../../../../OnlineLibrary")
+
+[node name="Margin" type="MarginContainer" parent="UI/Layout/Workspace/AssetLibraryPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 10
+
+[node name="VBox" type="VBoxContainer" parent="UI/Layout/Workspace/AssetLibraryPanel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Header" type="HBoxContainer" parent="UI/Layout/Workspace/AssetLibraryPanel/Margin/VBox"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="UI/Layout/Workspace/AssetLibraryPanel/Margin/VBox/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"PanelTitle"
+text = "Asset Library"
+
+[node name="RescanButton" type="Button" parent="UI/Layout/Workspace/AssetLibraryPanel/Margin/VBox/Header"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Rescan res://assets/props/"
+focus_mode = 0
+text = "Rescan"
+
+[node name="AssetSearch" type="LineEdit" parent="UI/Layout/Workspace/AssetLibraryPanel/Margin/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "Search assets…"
+clear_button_enabled = true
+
+[node name="CategoryFilter" type="OptionButton" parent="UI/Layout/Workspace/AssetLibraryPanel/Margin/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Show one category"
+focus_mode = 0
+
+[node name="EmptyLabel" type="Label" parent="UI/Layout/Workspace/AssetLibraryPanel/Margin/VBox"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_type_variation = &"DimLabel"
+autowrap_mode = 3
+
+[node name="AssetScroll" type="ScrollContainer" parent="UI/Layout/Workspace/AssetLibraryPanel/Margin/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="AssetList" type="VBoxContainer" parent="UI/Layout/Workspace/AssetLibraryPanel/Margin/VBox/AssetScroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="ViewportArea" type="Control" parent="UI/Layout/Workspace" node_paths=PackedStringArray("placement", "selection", "editor_camera", "director", "tools", "pose_tool")]
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 1
+script = ExtResource("9_viewport")
+tools = NodePath("../../../../WorldTools")
+pose_tool = NodePath("../../../../PoseTool")
+placement = NodePath("../../../../PlacementController")
+selection = NodePath("../../../../SelectionManager")
+editor_camera = NodePath("ViewportContainer/SubViewport/EditorCamera")
+director = NodePath("../../../../CinematicDirector")
+
+[node name="ViewportContainer" type="SubViewportContainer" parent="UI/Layout/Workspace/ViewportArea"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="UI/Layout/Workspace/ViewportArea/ViewportContainer"]
+handle_input_locally = false
+msaa_3d = 2
+size = Vector2i(1070, 460)
+
+[node name="EditorCamera" type="Camera3D" parent="UI/Layout/Workspace/ViewportArea/ViewportContainer/SubViewport"]
+current = true
+fov = 50.0
+far = 2000.0
+script = ExtResource("11_cam")
+
+[node name="ShotCamera" type="Camera3D" parent="UI/Layout/Workspace/ViewportArea/ViewportContainer/SubViewport"]
+fov = 50.0
+far = 2000.0
+
+[node name="Letterbox" type="Control" parent="UI/Layout/Workspace/ViewportArea" node_paths=PackedStringArray("director", "timeline")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("16_letterbox")
+director = NodePath("../../../../../CinematicDirector")
+timeline = NodePath("../../../../../TimelineController")
+
+[node name="ViewportHint" type="Label" parent="UI/Layout/Workspace/ViewportArea"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 12.0
+offset_top = 12.0
+offset_right = -230.0
+offset_bottom = 36.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.92, 0.94, 0.97, 0.92)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.75)
+theme_override_constants/outline_size = 6
+text = "…"
+text_overrun_behavior = 3
+
+[node name="ViewToggle" type="PanelContainer" parent="UI/Layout/Workspace/ViewportArea"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -216.0
+offset_top = 8.0
+offset_right = -10.0
+offset_bottom = 44.0
+grow_horizontal = 0
+theme_type_variation = &"OverlayPanel"
+
+[node name="HBox" type="HBoxContainer" parent="UI/Layout/Workspace/ViewportArea/ViewToggle"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="EditorViewButton" type="Button" parent="UI/Layout/Workspace/ViewportArea/ViewToggle/HBox"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Build and edit the scene (Tab)"
+focus_mode = 0
+toggle_mode = true
+button_pressed = true
+text = "Editor View"
+
+[node name="CameraViewButton" type="Button" parent="UI/Layout/Workspace/ViewportArea/ViewToggle/HBox"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Look through the live film camera (Tab)"
+focus_mode = 0
+toggle_mode = true
+text = "Camera View"
+
+[node name="NavBar" type="PanelContainer" parent="UI/Layout/Workspace/ViewportArea"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -330.0
+offset_top = -44.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_type_variation = &"OverlayPanel"
+
+[node name="HBox" type="HBoxContainer" parent="UI/Layout/Workspace/ViewportArea/NavBar"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="CameraLabel" type="Label" parent="UI/Layout/Workspace/ViewportArea/NavBar/HBox"]
+layout_mode = 2
+theme_type_variation = &"DimLabel"
+text = "Navigation"
+
+[node name="CameraSpeedSlider" type="HSlider" parent="UI/Layout/Workspace/ViewportArea/NavBar/HBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_vertical = 4
+tooltip_text = "Orbit, pan, zoom and W A S D speed"
+focus_mode = 0
+min_value = 0.25
+max_value = 3.0
+step = 0.05
+value = 1.0
+
+[node name="CameraSpeedValue" type="Label" parent="UI/Layout/Workspace/ViewportArea/NavBar/HBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(42, 0)
+layout_mode = 2
+theme_type_variation = &"DimLabel"
+text = "1.00×"
+
+[node name="SmoothCameraToggle" type="CheckBox" parent="UI/Layout/Workspace/ViewportArea/NavBar/HBox"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Ease camera movement"
+focus_mode = 0
+button_pressed = true
+text = "Smooth"
+
+[node name="InspectorPanel" type="PanelContainer" parent="UI/Layout/Workspace" node_paths=PackedStringArray("selection", "history", "timeline", "director", "environment", "grid_overlay", "online", "tools", "titles", "audio", "pose_tool")]
+custom_minimum_size = Vector2(310, 0)
+layout_mode = 2
+script = ExtResource("10_inspector")
+tools = NodePath("../../../../WorldTools")
+pose_tool = NodePath("../../../../PoseTool")
+titles = NodePath("../../../../TitleTrack")
+audio = NodePath("../../../../AudioTrack")
+selection = NodePath("../../../../SelectionManager")
+history = NodePath("../../../../EditorHistory")
+timeline = NodePath("../../../../TimelineController")
+director = NodePath("../../../../CinematicDirector")
+environment = NodePath("../../../../EnvironmentController")
+grid_overlay = NodePath("../../../../World3D/GroundPlane/GridOverlay")
+online = NodePath("../../../../OnlineLibrary")
+
+[node name="Margin" type="MarginContainer" parent="UI/Layout/Workspace/InspectorPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="InspectorRoot" type="VBoxContainer" parent="UI/Layout/Workspace/InspectorPanel/Margin"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="TimelinePanel" type="PanelContainer" parent="UI/Layout" node_paths=PackedStringArray("timeline", "selection", "director", "environment")]
+custom_minimum_size = Vector2(0, 196)
+layout_mode = 2
+script = ExtResource("15_timeline_panel")
+timeline = NodePath("../../../TimelineController")
+selection = NodePath("../../../SelectionManager")
+director = NodePath("../../../CinematicDirector")
+environment = NodePath("../../../EnvironmentController")
+
+[node name="Margin" type="MarginContainer" parent="UI/Layout/TimelinePanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 6
+
+[node name="TimelineRoot" type="VBoxContainer" parent="UI/Layout/TimelinePanel/Margin"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="StatusBar" type="PanelContainer" parent="UI/Layout"]
+layout_mode = 2
+theme_type_variation = &"ToolbarPanel"
+
+[node name="Margin" type="MarginContainer" parent="UI/Layout/StatusBar"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 4
+
+[node name="HBox" type="HBoxContainer" parent="UI/Layout/StatusBar/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="StatusLabel" type="Label" parent="UI/Layout/StatusBar/Margin/HBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text_overrun_behavior = 3
+
+[node name="FileLabel" type="Label" parent="UI/Layout/StatusBar/Margin/HBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"DimLabel"
+text = "Untitled"
+
+[node name="PropCountLabel" type="Label" parent="UI/Layout/StatusBar/Margin/HBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"DimLabel"
+text = "0 objects"

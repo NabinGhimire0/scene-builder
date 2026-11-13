@@ -1,0 +1,56 @@
+[gd_scene format=3]
+
+[sub_resource type="StandardMaterial3D" id="mat_bark"]
+albedo_color = Color(0.38, 0.26, 0.16, 1)
+roughness = 0.95
+
+[sub_resource type="StandardMaterial3D" id="mat_leaf"]
+albedo_color = Color(0.3, 0.52, 0.24, 1)
+roughness = 0.85
+
+[sub_resource type="CylinderMesh" id="mesh_1"]
+material = SubResource("mat_bark")
+top_radius = 0.18
+bottom_radius = 0.26
+height = 2
+
+[sub_resource type="SphereMesh" id="mesh_2"]
+material = SubResource("mat_leaf")
+radius = 1.3
+height = 2.4
+
+[sub_resource type="SphereMesh" id="mesh_3"]
+material = SubResource("mat_leaf")
+radius = 0.8
+height = 1.4
+
+[sub_resource type="CylinderShape3D" id="shape_4"]
+height = 2
+radius = 0.26
+
+[sub_resource type="BoxShape3D" id="shape_5"]
+size = Vector3(2.4, 2.2, 2.4)
+
+[node name="OakTree" type="StaticBody3D"]
+collision_layer = 2
+collision_mask = 0
+
+[node name="Trunk" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("mesh_1")
+
+[node name="Canopy" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.7, 0)
+mesh = SubResource("mesh_2")
+
+[node name="CanopySide" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7, 2.4, 0.3)
+mesh = SubResource("mesh_3")
+
+[node name="TrunkCollision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("shape_4")
+
+[node name="CanopyCollision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.7, 0)
+shape = SubResource("shape_5")

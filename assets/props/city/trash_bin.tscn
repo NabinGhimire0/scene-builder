@@ -1,0 +1,28 @@
+[gd_scene format=3]
+
+[sub_resource type="StandardMaterial3D" id="mat_bin"]
+albedo_color = Color(0.15, 0.3, 0.2, 1)
+roughness = 0.5
+metallic = 0.4
+
+[sub_resource type="CylinderMesh" id="mesh_1"]
+material = SubResource("mat_bin")
+top_radius = 0.28
+bottom_radius = 0.25
+height = 0.9
+
+[sub_resource type="CylinderShape3D" id="shape_2"]
+height = 0.9
+radius = 0.28
+
+[node name="TrashBin" type="StaticBody3D"]
+collision_layer = 2
+collision_mask = 0
+
+[node name="Bin" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, 0)
+mesh = SubResource("mesh_1")
+
+[node name="C" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, 0)
+shape = SubResource("shape_2")

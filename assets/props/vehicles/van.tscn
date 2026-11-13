@@ -1,0 +1,101 @@
+[gd_scene format=3]
+
+[sub_resource type="StandardMaterial3D" id="mat_paint"]
+albedo_color = Color(0.88, 0.88, 0.84, 1)
+roughness = 0.4
+metallic = 0.2
+
+[sub_resource type="StandardMaterial3D" id="mat_stripe"]
+albedo_color = Color(0.2, 0.42, 0.7, 1)
+roughness = 0.85
+
+[sub_resource type="StandardMaterial3D" id="mat_glass"]
+albedo_color = Color(0.15, 0.2, 0.26, 1)
+roughness = 0.1
+
+[sub_resource type="StandardMaterial3D" id="mat_tyre"]
+albedo_color = Color(0.08, 0.08, 0.09, 1)
+roughness = 0.85
+
+[sub_resource type="BoxMesh" id="mesh_1"]
+material = SubResource("mat_paint")
+size = Vector3(1.9, 1.6, 3.8)
+
+[sub_resource type="BoxMesh" id="mesh_2"]
+material = SubResource("mat_paint")
+size = Vector3(1.9, 0.9, 0.7)
+
+[sub_resource type="BoxMesh" id="mesh_3"]
+material = SubResource("mat_glass")
+size = Vector3(1.7, 0.6, 0.05)
+
+[sub_resource type="BoxMesh" id="mesh_4"]
+material = SubResource("mat_stripe")
+size = Vector3(1.92, 0.18, 3.82)
+
+[sub_resource type="CylinderMesh" id="mesh_5"]
+material = SubResource("mat_tyre")
+top_radius = 0.4
+bottom_radius = 0.4
+height = 0.28
+
+[sub_resource type="CylinderMesh" id="mesh_6"]
+material = SubResource("mat_tyre")
+top_radius = 0.4
+bottom_radius = 0.4
+height = 0.28
+
+[sub_resource type="CylinderMesh" id="mesh_7"]
+material = SubResource("mat_tyre")
+top_radius = 0.4
+bottom_radius = 0.4
+height = 0.28
+
+[sub_resource type="CylinderMesh" id="mesh_8"]
+material = SubResource("mat_tyre")
+top_radius = 0.4
+bottom_radius = 0.4
+height = 0.28
+
+[sub_resource type="BoxShape3D" id="shape_9"]
+size = Vector3(1.95, 1.95, 4.6)
+
+[node name="Van" type="StaticBody3D"]
+collision_layer = 2
+collision_mask = 0
+
+[node name="Body" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.15, -0.3)
+mesh = SubResource("mesh_1")
+
+[node name="Nose" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 1.95)
+mesh = SubResource("mesh_2")
+
+[node name="Windshield" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.55, 1.62)
+mesh = SubResource("mesh_3")
+
+[node name="Stripe" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -0.3)
+mesh = SubResource("mesh_4")
+
+[node name="Wheel1" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, -1, 0, 1, 0, 0, 0, 0, 1, -0.9, 0.4, 1.6)
+mesh = SubResource("mesh_5")
+
+[node name="Wheel2" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, -1, 0, 1, 0, 0, 0, 0, 1, 0.9, 0.4, 1.6)
+mesh = SubResource("mesh_6")
+
+[node name="Wheel3" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, -1, 0, 1, 0, 0, 0, 0, 1, -0.9, 0.4, -1.4)
+mesh = SubResource("mesh_7")
+
+[node name="Wheel4" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, -1, 0, 1, 0, 0, 0, 0, 1, 0.9, 0.4, -1.4)
+mesh = SubResource("mesh_8")
+
+[node name="Collision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.97, 0.05)
+shape = SubResource("shape_9")

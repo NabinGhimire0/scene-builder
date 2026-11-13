@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3]
+
+[sub_resource type="BoxMesh" id="1"]
+size = Vector3(80, 0.014, 0.014)
+
+[sub_resource type="StandardMaterial3D" id="2"]
+shading_mode = 0
+albedo_color = Color(0.5, 0.48, 0.46, 1)
+
+[node name="SketchFloorLine" type="Node3D"]
+
+[node name="Line" type="MeshInstance3D" parent="."]
+mesh = SubResource("1")
+material_override = SubResource("2")

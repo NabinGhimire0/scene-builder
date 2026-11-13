@@ -1,0 +1,78 @@
+{
+ "gender": 1.0,
+ "age": 9,
+ "height": 0.75,
+ "muscle": 0.5,
+ "weight": 0.5,
+ "race": {
+  "asian": 0.75,
+  "caucasian": 0.25
+ },
+ "seed": 303,
+ "skin": [
+  0.72,
+  0.52,
+  0.39
+ ],
+ "brows": [
+  0.06,
+  0.045,
+  0.035
+ ],
+ "brow_thickness": 0.75,
+ "hair": {
+  "style": "short",
+  "color": [
+   0.03,
+   0.025,
+   0.02
+  ],
+  "hairline": 0.85
+ },
+ "outfit": {
+  "top": {
+   "style": "hoodie",
+   "color": [
+    0.75,
+    0.2,
+    0.16
+   ],
+   "fabric": "knit"
+  },
+  "bottom": {
+   "style": "trousers",
+   "color": [
+    0.38,
+    0.32,
+    0.22
+   ]
+  },
+  "shoes": {
+   "color": [
+    0.25,
+    0.18,
+    0.13
+   ]
+  }
+ },
+ "name": "boy",
+ "clips": [
+  "Idle",
+  "Walk",
+  "Run",
+  "Sad Walk",
+  "Talk",
+  "Wave",
+  "Cheer",
+  "Laugh",
+  "Happy",
+  "Sad",
+  "Cry",
+  "Phone",
+  "Pick Up",
+  "Sit",
+  "Kneel",
+  "Jump",
+  "Dance"
+ ]
+}

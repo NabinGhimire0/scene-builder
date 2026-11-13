@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/nature/WaterBody.gd" id="1_water"]
+
+[node name="Lake" type="Node3D"]
+script = ExtResource("1_water")
+look = "Clear lake"
+shallow_color = Color(0.32, 0.58, 0.55, 1)
+deep_color = Color(0.03, 0.13, 0.17, 1)
+clarity = 2.5
+shore = "Pebbles"
+bank_wet = Color(0.26, 0.25, 0.23, 1)
+bank_dry = Color(0.52, 0.5, 0.46, 1)
+bank_bed = Color(0.4, 0.38, 0.34, 1)
+outline = "Natural"
+width = 40.0
+length = 28.0
+depth = 6.0
+bank_width = 2.5
+wave_height = 0.06
+wave_length = 4.0
+ripple_size = 1.2
+foam = 0.35
+variation = 7

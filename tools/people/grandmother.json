@@ -1,0 +1,76 @@
+{
+ "gender": 0.0,
+ "age": 70,
+ "height": 0.48,
+ "muscle": 0.4,
+ "weight": 0.58,
+ "race": {
+  "asian": 0.75,
+  "caucasian": 0.25
+ },
+ "seed": 606,
+ "skin": [
+  0.75,
+  0.56,
+  0.44
+ ],
+ "brows": [
+  0.6,
+  0.58,
+  0.56
+ ],
+ "brow_thickness": 0.7,
+ "hair": {
+  "style": "bun",
+  "color": [
+   0.82,
+   0.81,
+   0.8
+  ]
+ },
+ "outfit": {
+  "top": {
+   "style": "kurta",
+   "color": [
+    0.2,
+    0.42,
+    0.36
+   ]
+  },
+  "bottom": {
+   "style": "trousers",
+   "color": [
+    0.25,
+    0.25,
+    0.3
+   ]
+  },
+  "shoes": {
+   "color": [
+    0.3,
+    0.22,
+    0.16
+   ]
+  }
+ },
+ "name": "grandmother",
+ "clips": [
+  "Idle",
+  "Walk",
+  "Run",
+  "Sad Walk",
+  "Talk",
+  "Wave",
+  "Cheer",
+  "Laugh",
+  "Happy",
+  "Sad",
+  "Cry",
+  "Phone",
+  "Pick Up",
+  "Sit",
+  "Kneel",
+  "Jump",
+  "Dance"
+ ]
+}

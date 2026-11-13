@@ -1,0 +1,56 @@
+[gd_scene format=3]
+
+[sub_resource type="StandardMaterial3D" id="mat_body"]
+albedo_color = Color(0.92, 0.92, 0.9, 1)
+roughness = 0.4
+
+[sub_resource type="StandardMaterial3D" id="mat_glass"]
+albedo_color = Color(0.7, 0.8, 0.85, 1)
+roughness = 0.05
+
+[sub_resource type="StandardMaterial3D" id="mat_cross"]
+albedo_color = Color(0.8, 0.1, 0.1, 1)
+roughness = 0.85
+
+[sub_resource type="BoxMesh" id="mesh_1"]
+material = SubResource("mat_body")
+size = Vector3(1, 1.8, 0.45)
+
+[sub_resource type="BoxMesh" id="mesh_2"]
+material = SubResource("mat_glass")
+size = Vector3(0.9, 0.9, 0.01)
+
+[sub_resource type="BoxMesh" id="mesh_3"]
+material = SubResource("mat_cross")
+size = Vector3(0.25, 0.07, 0.01)
+
+[sub_resource type="BoxMesh" id="mesh_4"]
+material = SubResource("mat_cross")
+size = Vector3(0.07, 0.25, 0.01)
+
+[sub_resource type="BoxShape3D" id="shape_5"]
+size = Vector3(1, 1.8, 0.45)
+
+[node name="MedicalCabinet" type="StaticBody3D"]
+collision_layer = 2
+collision_mask = 0
+
+[node name="Body" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+mesh = SubResource("mesh_1")
+
+[node name="Glass" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0.23)
+mesh = SubResource("mesh_2")
+
+[node name="CrossH" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0.235)
+mesh = SubResource("mesh_3")
+
+[node name="CrossV" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0.236)
+mesh = SubResource("mesh_4")
+
+[node name="C" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("shape_5")

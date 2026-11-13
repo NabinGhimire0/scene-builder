@@ -1,0 +1,79 @@
+{
+ "gender": 1.0,
+ "age": 72,
+ "height": 0.5,
+ "muscle": 0.4,
+ "weight": 0.52,
+ "race": {
+  "asian": 0.75,
+  "caucasian": 0.25
+ },
+ "seed": 505,
+ "skin": [
+  0.72,
+  0.54,
+  0.42
+ ],
+ "brows": [
+  0.75,
+  0.73,
+  0.7
+ ],
+ "stubble": 0.35,
+ "hair": {
+  "style": "short",
+  "color": [
+   0.78,
+   0.77,
+   0.75
+  ],
+  "hairline": 1.5,
+  "volume": 0.5
+ },
+ "outfit": {
+  "top": {
+   "style": "sweater",
+   "color": [
+    0.4,
+    0.35,
+    0.28
+   ],
+   "fabric": "knit"
+  },
+  "bottom": {
+   "style": "trousers",
+   "color": [
+    0.3,
+    0.3,
+    0.32
+   ]
+  },
+  "shoes": {
+   "color": [
+    0.15,
+    0.12,
+    0.1
+   ]
+  }
+ },
+ "name": "grandfather",
+ "clips": [
+  "Idle",
+  "Walk",
+  "Run",
+  "Sad Walk",
+  "Talk",
+  "Wave",
+  "Cheer",
+  "Laugh",
+  "Happy",
+  "Sad",
+  "Cry",
+  "Phone",
+  "Pick Up",
+  "Sit",
+  "Kneel",
+  "Jump",
+  "Dance"
+ ]
+}

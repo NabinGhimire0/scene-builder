@@ -1,0 +1,26 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/nature/River.gd" id="1_river"]
+
+[node name="Stream" type="Node3D"]
+script = ExtResource("1_river")
+look = "Clear lake"
+shallow_color = Color(0.32, 0.58, 0.55, 1)
+deep_color = Color(0.03, 0.13, 0.17, 1)
+clarity = 2.5
+shore = "Pebbles"
+bank_wet = Color(0.26, 0.25, 0.23, 1)
+bank_dry = Color(0.52, 0.5, 0.46, 1)
+bank_bed = Color(0.4, 0.38, 0.34, 1)
+width = 1.6
+length = 30.0
+bends = 3.0
+winding = 0.6
+flow = 1.8
+depth = 0.35
+bank_width = 0.8
+wave_height = 0.0
+ripple_size = 0.35
+ripple_strength = 0.8
+foam = 0.5
+variation = 5

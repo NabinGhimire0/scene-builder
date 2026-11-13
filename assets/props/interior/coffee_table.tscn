@@ -1,0 +1,64 @@
+[gd_scene format=3]
+
+[sub_resource type="StandardMaterial3D" id="mat_wood"]
+albedo_color = Color(0.55, 0.38, 0.21, 1)
+roughness = 0.5
+
+[sub_resource type="BoxMesh" id="mesh_1"]
+material = SubResource("mat_wood")
+size = Vector3(1.1, 0.05, 0.6)
+
+[sub_resource type="CylinderMesh" id="mesh_2"]
+material = SubResource("mat_wood")
+top_radius = 0.03
+bottom_radius = 0.03
+height = 0.4
+
+[sub_resource type="CylinderMesh" id="mesh_3"]
+material = SubResource("mat_wood")
+top_radius = 0.03
+bottom_radius = 0.03
+height = 0.4
+
+[sub_resource type="CylinderMesh" id="mesh_4"]
+material = SubResource("mat_wood")
+top_radius = 0.03
+bottom_radius = 0.03
+height = 0.4
+
+[sub_resource type="CylinderMesh" id="mesh_5"]
+material = SubResource("mat_wood")
+top_radius = 0.03
+bottom_radius = 0.03
+height = 0.4
+
+[sub_resource type="BoxShape3D" id="shape_6"]
+size = Vector3(1.1, 0.45, 0.6)
+
+[node name="CoffeeTable" type="StaticBody3D"]
+collision_layer = 2
+collision_mask = 0
+
+[node name="Top" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.42, 0)
+mesh = SubResource("mesh_1")
+
+[node name="Leg0" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.2, -0.25)
+mesh = SubResource("mesh_2")
+
+[node name="Leg1" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.2, -0.25)
+mesh = SubResource("mesh_3")
+
+[node name="Leg2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.2, 0.25)
+mesh = SubResource("mesh_4")
+
+[node name="Leg3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.2, 0.25)
+mesh = SubResource("mesh_5")
+
+[node name="C" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.22, 0)
+shape = SubResource("shape_6")

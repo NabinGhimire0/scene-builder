@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/props/Room.gd" id="1_p"]
+
+[node name="StudioRoom" type="Node3D"]
+script = ExtResource("1_p")
+width = 14.0
+depth = 10.0
+height = 5.0
+floor_style = "Concrete"
+floor_color = Color(0.2, 0.2, 0.22, 1)
+wall_color = Color(0.12, 0.12, 0.14, 1)
+lower_wall_color = Color(0.12, 0.12, 0.14, 1)
+windows = 0
+doorway = false

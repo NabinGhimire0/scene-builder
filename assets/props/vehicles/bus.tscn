@@ -1,0 +1,89 @@
+[gd_scene format=3]
+
+[sub_resource type="StandardMaterial3D" id="mat_body"]
+albedo_color = Color(0.85, 0.2, 0.15, 1)
+roughness = 0.4
+metallic = 0.3
+
+[sub_resource type="StandardMaterial3D" id="mat_glass"]
+albedo_color = Color(0.1, 0.13, 0.16, 1)
+roughness = 0.05
+
+[sub_resource type="StandardMaterial3D" id="mat_tyre"]
+albedo_color = Color(0.06, 0.06, 0.07, 1)
+roughness = 0.85
+
+[sub_resource type="BoxMesh" id="mesh_1"]
+material = SubResource("mat_body")
+size = Vector3(2.5, 2.8, 11)
+
+[sub_resource type="BoxMesh" id="mesh_2"]
+material = SubResource("mat_glass")
+size = Vector3(2.52, 1, 10.2)
+
+[sub_resource type="BoxMesh" id="mesh_3"]
+material = SubResource("mat_glass")
+size = Vector3(2.3, 1.6, 0.02)
+
+[sub_resource type="CylinderMesh" id="mesh_4"]
+material = SubResource("mat_tyre")
+top_radius = 0.5
+bottom_radius = 0.5
+height = 0.35
+
+[sub_resource type="CylinderMesh" id="mesh_5"]
+material = SubResource("mat_tyre")
+top_radius = 0.5
+bottom_radius = 0.5
+height = 0.35
+
+[sub_resource type="CylinderMesh" id="mesh_6"]
+material = SubResource("mat_tyre")
+top_radius = 0.5
+bottom_radius = 0.5
+height = 0.35
+
+[sub_resource type="CylinderMesh" id="mesh_7"]
+material = SubResource("mat_tyre")
+top_radius = 0.5
+bottom_radius = 0.5
+height = 0.35
+
+[sub_resource type="BoxShape3D" id="shape_8"]
+size = Vector3(2.5, 3.1, 11)
+
+[node name="Bus" type="StaticBody3D"]
+collision_layer = 2
+collision_mask = 0
+
+[node name="Body" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+mesh = SubResource("mesh_1")
+
+[node name="Windows" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2, 0)
+mesh = SubResource("mesh_2")
+
+[node name="Windscreen" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9, 5.51)
+mesh = SubResource("mesh_3")
+
+[node name="Wheel0" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, -1, 0, 1, 0, 0, 0, 0, 1, -1.1, 0.5, -3.5)
+mesh = SubResource("mesh_4")
+
+[node name="Wheel1" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, -1, 0, 1, 0, 0, 0, 0, 1, 1.1, 0.5, -3.5)
+mesh = SubResource("mesh_5")
+
+[node name="Wheel2" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, -1, 0, 1, 0, 0, 0, 0, 1, -1.1, 0.5, 3.5)
+mesh = SubResource("mesh_6")
+
+[node name="Wheel3" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, -1, 0, 1, 0, 0, 0, 0, 1, 1.1, 0.5, 3.5)
+mesh = SubResource("mesh_7")
+
+[node name="C" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.55, 0)
+shape = SubResource("shape_8")

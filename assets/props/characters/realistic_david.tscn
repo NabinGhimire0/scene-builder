@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/characters/ImportedCharacter.gd" id="1_imp"]
+[ext_resource type="PackedScene" path="res://assets/people/david.glb" id="2_model"]
+
+[node name="RealisticDavid" type="Node3D"]
+script = ExtResource("1_imp")
+
+[node name="Model" parent="." instance=ExtResource("2_model")]

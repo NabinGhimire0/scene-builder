@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/props/Room.gd" id="1_p"]
+
+[node name="ClassroomRoom" type="Node3D"]
+script = ExtResource("1_p")
+width = 10.0
+depth = 9.0
+height = 3.2
+floor_style = "Tiles"
+floor_color = Color(0.7, 0.68, 0.62, 1)
+wall_color = Color(0.93, 0.9, 0.78, 1)
+lower_wall_color = Color(0.45, 0.6, 0.55, 1)
+windows = 3

@@ -1,0 +1,82 @@
+[gd_scene format=3]
+
+[sub_resource type="StandardMaterial3D" id="mat_seat"]
+albedo_color = Color(0.18, 0.12, 0.1, 1)
+roughness = 0.6
+
+[sub_resource type="StandardMaterial3D" id="mat_metal"]
+albedo_color = Color(0.08, 0.08, 0.09, 1)
+roughness = 0.35
+metallic = 0.6
+
+[sub_resource type="CylinderMesh" id="mesh_1"]
+material = SubResource("mat_seat")
+top_radius = 0.2
+bottom_radius = 0.2
+height = 0.06
+
+[sub_resource type="CylinderMesh" id="mesh_2"]
+material = SubResource("mat_metal")
+top_radius = 0.015
+bottom_radius = 0.015
+height = 0.74
+
+[sub_resource type="CylinderMesh" id="mesh_3"]
+material = SubResource("mat_metal")
+top_radius = 0.015
+bottom_radius = 0.015
+height = 0.74
+
+[sub_resource type="CylinderMesh" id="mesh_4"]
+material = SubResource("mat_metal")
+top_radius = 0.015
+bottom_radius = 0.015
+height = 0.74
+
+[sub_resource type="CylinderMesh" id="mesh_5"]
+material = SubResource("mat_metal")
+top_radius = 0.015
+bottom_radius = 0.015
+height = 0.74
+
+[sub_resource type="CylinderMesh" id="mesh_6"]
+material = SubResource("mat_metal")
+top_radius = 0.2
+bottom_radius = 0.2
+height = 0.02
+
+[sub_resource type="CylinderShape3D" id="shape_7"]
+height = 0.8
+radius = 0.22
+
+[node name="BarStool" type="StaticBody3D"]
+collision_layer = 2
+collision_mask = 0
+
+[node name="Seat" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.76, 0)
+mesh = SubResource("mesh_1")
+
+[node name="Leg0" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.14, 0.37, -0.14)
+mesh = SubResource("mesh_2")
+
+[node name="Leg1" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.14, 0.37, -0.14)
+mesh = SubResource("mesh_3")
+
+[node name="Leg2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.14, 0.37, 0.14)
+mesh = SubResource("mesh_4")
+
+[node name="Leg3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.14, 0.37, 0.14)
+mesh = SubResource("mesh_5")
+
+[node name="Ring" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+mesh = SubResource("mesh_6")
+
+[node name="C" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
+shape = SubResource("shape_7")

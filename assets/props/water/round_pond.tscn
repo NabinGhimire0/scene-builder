@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/nature/WaterBody.gd" id="1_water"]
+
+[node name="RoundPond" type="Node3D"]
+script = ExtResource("1_water")
+look = "Mountain lake"
+shallow_color = Color(0.3, 0.64, 0.62, 1)
+deep_color = Color(0.02, 0.17, 0.24, 1)
+clarity = 4.0
+shore = "Pebbles"
+bank_wet = Color(0.26, 0.25, 0.23, 1)
+bank_dry = Color(0.52, 0.5, 0.46, 1)
+bank_bed = Color(0.4, 0.38, 0.34, 1)
+outline = "Round"
+width = 5.0
+length = 5.0
+depth = 0.8
+bank_width = 0.8
+wave_height = 0.0
+ripple_size = 0.5
+ripple_strength = 0.4
+foam = 0.15

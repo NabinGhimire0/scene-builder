@@ -1,0 +1,48 @@
+[gd_scene format=3]
+
+[sub_resource type="StandardMaterial3D" id="mat_wood"]
+albedo_color = Color(0.32, 0.21, 0.12, 1)
+roughness = 0.85
+
+[sub_resource type="BoxMesh" id="mesh_1"]
+material = SubResource("mat_wood")
+size = Vector3(1.6, 0.05, 0.8)
+
+[sub_resource type="BoxMesh" id="mesh_2"]
+material = SubResource("mat_wood")
+size = Vector3(1.6, 0.72, 0.04)
+
+[sub_resource type="BoxMesh" id="mesh_3"]
+material = SubResource("mat_wood")
+size = Vector3(0.04, 0.76, 0.8)
+
+[sub_resource type="BoxMesh" id="mesh_4"]
+material = SubResource("mat_wood")
+size = Vector3(0.04, 0.76, 0.8)
+
+[sub_resource type="BoxShape3D" id="shape_5"]
+size = Vector3(1.6, 0.78, 0.8)
+
+[node name="TeacherDesk" type="StaticBody3D"]
+collision_layer = 2
+collision_mask = 0
+
+[node name="Top" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.76, 0)
+mesh = SubResource("mesh_1")
+
+[node name="Front" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0.36)
+mesh = SubResource("mesh_2")
+
+[node name="SideL" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.78, 0.38, 0)
+mesh = SubResource("mesh_3")
+
+[node name="SideR" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.78, 0.38, 0)
+mesh = SubResource("mesh_4")
+
+[node name="C" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.39, 0)
+shape = SubResource("shape_5")

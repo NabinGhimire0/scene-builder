@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/props/Building.gd" id="1_p"]
+
+[node name="ApartmentBlock" type="Node3D"]
+script = ExtResource("1_p")
+style = "Apartment"
+floors = 7
+width = 16.0
+depth = 12.0

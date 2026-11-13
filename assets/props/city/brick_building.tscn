@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/props/Building.gd" id="1_p"]
+
+[node name="BrickBuilding" type="Node3D"]
+script = ExtResource("1_p")
+style = "Brick"
+floors = 4
+width = 12.0
+depth = 10.0

@@ -1,0 +1,94 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="Scene Builder"
+config/version="1.28"
+config/description="Drag-and-drop 3D environment builder and cinematic movie maker."
+run/main_scene="res://scenes/MainApp.tscn"
+config/features=PackedStringArray("4.3", "Forward Plus")
+boot_splash/bg_color=Color(0.07, 0.075, 0.09, 1)
+boot_splash/show_image=false
+config/icon="res://icon.svg"
+
+[audio]
+
+driver/enable_input=true
+
+[autoload]
+
+EventBus="*res://scripts/core/EventBus.gd"
+
+[display]
+
+window/size/viewport_width=1600
+window/size/viewport_height=900
+
+[gui]
+
+theme/custom="res://assets/ui/app_theme.tres"
+
+[layer_names]
+
+3d_physics/layer_1="Ground"
+3d_physics/layer_2="Props"
+
+[physics]
+
+common/physics_ticks_per_second=60
+
+[rendering]
+
+environment/defaults/default_clear_color=Color(0.07, 0.075, 0.09, 1)
+anti_aliasing/quality/msaa_3d=2
+
+[shader_globals]
+
+scene_time={
+"type": "float",
+"value": 0.0
+}
+wind_strength={
+"type": "float",
+"value": 0.3
+}
+wind_direction={
+"type": "vec2",
+"value": Vector2(0.8, 0.6)
+}
+wetness={
+"type": "float",
+"value": 0.0
+}
+snow_cover={
+"type": "float",
+"value": 0.0
+}
+autumn={
+"type": "float",
+"value": 0.0
+}
+rain_amount={
+"type": "float",
+"value": 0.0
+}
+snow_amount={
+"type": "float",
+"value": 0.0
+}
+leaves_amount={
+"type": "float",
+"value": 0.0
+}
+night={
+"type": "float",
+"value": 0.0
+}

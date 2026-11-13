@@ -1,0 +1,77 @@
+{
+ "gender": 1.0,
+ "age": 45,
+ "height": 0.6,
+ "muscle": 0.5,
+ "weight": 0.65,
+ "race": {
+  "caucasian": 1.0
+ },
+ "seed": 707,
+ "skin": [
+  0.88,
+  0.7,
+  0.6
+ ],
+ "brows": [
+  0.3,
+  0.22,
+  0.15
+ ],
+ "stubble": 0.4,
+ "hair": {
+  "style": "short",
+  "color": [
+   0.32,
+   0.22,
+   0.14
+  ],
+  "hairline": 1.2
+ },
+ "outfit": {
+  "top": {
+   "style": "longsleeve",
+   "color": [
+    0.25,
+    0.35,
+    0.3
+   ]
+  },
+  "bottom": {
+   "style": "jeans",
+   "color": [
+    0.2,
+    0.25,
+    0.38
+   ],
+   "fabric": "denim"
+  },
+  "shoes": {
+   "color": [
+    0.35,
+    0.22,
+    0.12
+   ]
+  }
+ },
+ "name": "man_2",
+ "clips": [
+  "Idle",
+  "Walk",
+  "Run",
+  "Sad Walk",
+  "Talk",
+  "Wave",
+  "Cheer",
+  "Laugh",
+  "Happy",
+  "Sad",
+  "Cry",
+  "Phone",
+  "Pick Up",
+  "Sit",
+  "Kneel",
+  "Jump",
+  "Dance"
+ ]
+}

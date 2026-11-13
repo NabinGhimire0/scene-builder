@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/nature/WaterBody.gd" id="1_water"]
+
+[node name="Pond" type="Node3D"]
+script = ExtResource("1_water")
+look = "Murky pond"
+shallow_color = Color(0.34, 0.37, 0.2, 1)
+deep_color = Color(0.06, 0.09, 0.05, 1)
+clarity = 0.6
+shore = "Grassy"
+bank_wet = Color(0.15, 0.15, 0.08, 1)
+bank_dry = Color(0.25, 0.32, 0.13, 1)
+bank_bed = Color(0.26, 0.25, 0.15, 1)
+outline = "Natural"
+width = 7.0
+length = 5.0
+depth = 1.2
+bank_width = 1.2
+wave_height = 0.0
+ripple_size = 0.6
+ripple_strength = 0.5
+foam = 0.2
+variation = 3

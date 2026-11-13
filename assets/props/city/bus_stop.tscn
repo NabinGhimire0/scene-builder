@@ -1,0 +1,65 @@
+[gd_scene format=3]
+
+[sub_resource type="StandardMaterial3D" id="mat_frame"]
+albedo_color = Color(0.2, 0.22, 0.24, 1)
+roughness = 0.4
+metallic = 0.6
+
+[sub_resource type="StandardMaterial3D" id="mat_glass"]
+albedo_color = Color(0.7, 0.8, 0.85, 1)
+roughness = 0.05
+
+[sub_resource type="StandardMaterial3D" id="mat_roof"]
+albedo_color = Color(0.15, 0.16, 0.18, 1)
+roughness = 0.85
+
+[sub_resource type="BoxMesh" id="mesh_1"]
+material = SubResource("mat_glass")
+size = Vector3(3, 1.8, 0.03)
+
+[sub_resource type="BoxMesh" id="mesh_2"]
+material = SubResource("mat_roof")
+size = Vector3(3.2, 0.08, 1.4)
+
+[sub_resource type="BoxMesh" id="mesh_3"]
+material = SubResource("mat_frame")
+size = Vector3(0.06, 2.3, 0.06)
+
+[sub_resource type="BoxMesh" id="mesh_4"]
+material = SubResource("mat_frame")
+size = Vector3(0.06, 2.3, 0.06)
+
+[sub_resource type="BoxMesh" id="mesh_5"]
+material = SubResource("mat_frame")
+size = Vector3(2.4, 0.05, 0.35)
+
+[sub_resource type="BoxShape3D" id="shape_6"]
+size = Vector3(3.2, 2.4, 1.4)
+
+[node name="BusStop" type="StaticBody3D"]
+collision_layer = 2
+collision_mask = 0
+
+[node name="Back" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, -0.6)
+mesh = SubResource("mesh_1")
+
+[node name="Roof" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3, -0.2)
+mesh = SubResource("mesh_2")
+
+[node name="PostL" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 1.15, -0.6)
+mesh = SubResource("mesh_3")
+
+[node name="PostR" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 1.15, -0.6)
+mesh = SubResource("mesh_4")
+
+[node name="Bench" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, -0.4)
+mesh = SubResource("mesh_5")
+
+[node name="C" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, -0.2)
+shape = SubResource("shape_6")

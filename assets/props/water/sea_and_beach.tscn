@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/nature/Coast.gd" id="1_coast"]
+
+[node name="SeaAndBeach" type="Node3D"]
+script = ExtResource("1_coast")
+look = "Deep sea"
+shallow_color = Color(0.22, 0.62, 0.64, 1)
+deep_color = Color(0.01, 0.06, 0.13, 1)
+clarity = 3.5
+shore = "Sand"
+bank_wet = Color(0.55, 0.47, 0.34, 1)
+bank_dry = Color(0.84, 0.76, 0.6, 1)
+bank_bed = Color(0.7, 0.62, 0.46, 1)
+depth = 14.0
+bank_width = 18.0
+wave_height = 0.35
+wave_length = 14.0
+wave_speed = 0.9
+ripple_size = 2.5
+ripple_strength = 0.6
+foam = 0.6
+breakers = 0.8
+shelf_width = 40.0

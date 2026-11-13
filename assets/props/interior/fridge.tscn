@@ -1,0 +1,38 @@
+[gd_scene format=3]
+
+[sub_resource type="StandardMaterial3D" id="mat_body"]
+albedo_color = Color(0.85, 0.86, 0.87, 1)
+roughness = 0.3
+metallic = 0.3
+
+[sub_resource type="StandardMaterial3D" id="mat_handle"]
+albedo_color = Color(0.6, 0.62, 0.65, 1)
+roughness = 0.2
+metallic = 0.9
+
+[sub_resource type="BoxMesh" id="mesh_1"]
+material = SubResource("mat_body")
+size = Vector3(0.75, 1.8, 0.7)
+
+[sub_resource type="BoxMesh" id="mesh_2"]
+material = SubResource("mat_handle")
+size = Vector3(0.03, 0.5, 0.03)
+
+[sub_resource type="BoxShape3D" id="shape_3"]
+size = Vector3(0.75, 1.8, 0.7)
+
+[node name="Fridge" type="StaticBody3D"]
+collision_layer = 2
+collision_mask = 0
+
+[node name="Body" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+mesh = SubResource("mesh_1")
+
+[node name="Handle" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 1.2, 0.37)
+mesh = SubResource("mesh_2")
+
+[node name="C" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("shape_3")

@@ -1,0 +1,82 @@
+[gd_scene format=3]
+
+[sub_resource type="StandardMaterial3D" id="mat_pole"]
+albedo_color = Color(0.25, 0.27, 0.25, 1)
+roughness = 0.5
+metallic = 0.5
+
+[sub_resource type="StandardMaterial3D" id="mat_box"]
+albedo_color = Color(0.08, 0.08, 0.09, 1)
+roughness = 0.85
+
+[sub_resource type="StandardMaterial3D" id="mat_red"]
+albedo_color = Color(0.9, 0.1, 0.05, 1)
+roughness = 0.85
+emission_enabled = true
+emission = Color(1, 0.1, 0.05, 1)
+emission_energy_multiplier = 3
+
+[sub_resource type="StandardMaterial3D" id="mat_amber"]
+albedo_color = Color(0.3, 0.2, 0, 1)
+roughness = 0.85
+
+[sub_resource type="StandardMaterial3D" id="mat_green"]
+albedo_color = Color(0, 0.25, 0.1, 1)
+roughness = 0.85
+
+[sub_resource type="CylinderMesh" id="mesh_1"]
+material = SubResource("mat_pole")
+top_radius = 0.06
+bottom_radius = 0.07
+height = 3.2
+
+[sub_resource type="BoxMesh" id="mesh_2"]
+material = SubResource("mat_box")
+size = Vector3(0.3, 0.8, 0.25)
+
+[sub_resource type="SphereMesh" id="mesh_3"]
+material = SubResource("mat_red")
+radius = 0.08
+height = 0.16
+
+[sub_resource type="SphereMesh" id="mesh_4"]
+material = SubResource("mat_amber")
+radius = 0.08
+height = 0.16
+
+[sub_resource type="SphereMesh" id="mesh_5"]
+material = SubResource("mat_green")
+radius = 0.08
+height = 0.16
+
+[sub_resource type="CylinderShape3D" id="shape_6"]
+height = 3.7
+radius = 0.1
+
+[node name="TrafficLight" type="StaticBody3D"]
+collision_layer = 2
+collision_mask = 0
+
+[node name="Pole" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
+mesh = SubResource("mesh_1")
+
+[node name="Box" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.3, 0.1)
+mesh = SubResource("mesh_2")
+
+[node name="Red" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.55, 0.23)
+mesh = SubResource("mesh_3")
+
+[node name="Amber" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.3, 0.23)
+mesh = SubResource("mesh_4")
+
+[node name="Green" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.05, 0.23)
+mesh = SubResource("mesh_5")
+
+[node name="C" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.85, 0)
+shape = SubResource("shape_6")

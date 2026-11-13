@@ -1,0 +1,57 @@
+[gd_scene format=3]
+
+[sub_resource type="StandardMaterial3D" id="mat_seat"]
+albedo_color = Color(0.08, 0.08, 0.09, 1)
+roughness = 0.8
+
+[sub_resource type="StandardMaterial3D" id="mat_metal"]
+albedo_color = Color(0.6, 0.62, 0.65, 1)
+roughness = 0.3
+metallic = 0.8
+
+[sub_resource type="BoxMesh" id="mesh_1"]
+material = SubResource("mat_seat")
+size = Vector3(0.5, 0.08, 0.5)
+
+[sub_resource type="BoxMesh" id="mesh_2"]
+material = SubResource("mat_seat")
+size = Vector3(0.48, 0.55, 0.06)
+
+[sub_resource type="CylinderMesh" id="mesh_3"]
+material = SubResource("mat_metal")
+top_radius = 0.03
+bottom_radius = 0.03
+height = 0.45
+
+[sub_resource type="CylinderMesh" id="mesh_4"]
+material = SubResource("mat_metal")
+top_radius = 0.3
+bottom_radius = 0.3
+height = 0.04
+
+[sub_resource type="BoxShape3D" id="shape_5"]
+size = Vector3(0.55, 1.1, 0.55)
+
+[node name="OfficeChair" type="StaticBody3D"]
+collision_layer = 2
+collision_mask = 0
+
+[node name="Seat" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.48, 0)
+mesh = SubResource("mesh_1")
+
+[node name="Back" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, -0.23)
+mesh = SubResource("mesh_2")
+
+[node name="Post" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+mesh = SubResource("mesh_3")
+
+[node name="Base" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.04, 0)
+mesh = SubResource("mesh_4")
+
+[node name="C" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0)
+shape = SubResource("shape_5")
